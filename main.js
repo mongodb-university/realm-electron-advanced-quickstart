@@ -21,7 +21,7 @@ function createWindow () {
 }
 
 app.whenReady().then(async () => {
-    const app = new Realm.App({ id: "electron-tester-qokcs" }); // create a new instance of the Realm.App
+    const app = new Realm.App({ id: "<Your App ID>" }); // create a new instance of the Realm.App
 
     await app.logIn(new Realm.Credentials.anonymous());
     const DogSchema = {

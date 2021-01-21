@@ -1,6 +1,6 @@
 const Realm = require("realm");
 const BSON = require("BSON");
-const app = new Realm.App({ id: "electron-tester-qokcs" }); // create a new instance of the Realm.App
+const app = new Realm.App({ id: "<Your App ID>" }); // create a new instance of the Realm.App
 
 async function run() {
 
