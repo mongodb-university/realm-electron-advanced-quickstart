@@ -1,25 +1,24 @@
 {
   "name": "realm-electron-advanced-quickstart",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Electron QuickStart Advanced Guide",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint main.js renderer.js --fix",
-    "pretty": "./node_modules/.bin/prettier --write 'main.js' 'renderer.js'"
+    "pretty": "./node_modules/.bin/prettier --write 'main.js' 'renderer.js'",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mongodb-university/realm-electron-advanced-quickstart.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mongodb-university/realm-electron-advanced-quickstart/issues"
   },
   "homepage": "https://github.com/mongodb-university/realm-electron-advanced-quickstart#readme",
   "devDependencies": {
+    "electron": "^11.2.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.2.0",
