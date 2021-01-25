@@ -1,6 +1,4 @@
 const Realm = require('realm');
-const BSON = require('BSON');
-
 const { app, BrowserWindow } = require('electron');
 
 function createWindow() {
@@ -13,20 +11,23 @@ function createWindow() {
     },
   });
 
-  // create an ongoing process (by reading from stdin) to prevent the Sync Connection from ending prematurely
+  /*
+    create an ongoing process (by reading from stdin)
+    to prevent the Sync Connection from ending prematurely
+  */
   process.stdin.resume();
 
   win.loadFile('index.html');
 }
 
 app.whenReady().then(async () => {
-  const app = new Realm.App({ id: '<Your App ID>' }); // create a new instance of the Realm.App
+  const realmApp = new Realm.App({ id: '<Your App ID>' }); // create a new instance of the Realm.App
 
-  await app.logIn(new Realm.Credentials.anonymous());
+  await realmApp.logIn(Realm.Credentials.anonymous());
   const DogSchema = {
     name: 'Dog',
     properties: {
-      _id: 'objectId',
+      _id: 'int',
       name: 'string',
       age: 'int',
     },
@@ -37,7 +38,7 @@ app.whenReady().then(async () => {
     schema: [DogSchema],
     path: 'my.realm',
     sync: {
-      user: app.currentUser,
+      user: realmApp.currentUser,
       partitionValue: 'myPartition',
     },
   };
@@ -45,13 +46,17 @@ app.whenReady().then(async () => {
   // open a synced realm
   const realm = await Realm.open(config);
 
+  realm.write(() => {
+    realm.deleteAll();
+  })
+
   const dogs = realm.objects('Dog');
-  console.log(`Renderer: Number of Dog objects: ${dogs.length}`);
+  console.log(`Main: Number of Dog objects: ${dogs.length}`);
 
   realm.write(() => {
     realm.create('Dog', {
-      _id: new BSON.ObjectID(),
-      name: 'Fizzbuzz2',
+      _id: 2,
+      name: 'Fido',
       age: 5,
     });
   });

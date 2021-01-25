@@ -1,16 +1,10 @@
 const Realm = require('realm');
-const BSON = require('BSON');
-
-const app = new Realm.App({ id: '<Your App ID>' }); // create a new instance of the Realm.App
 
 async function run() {
-  // login with an anonymous credential
-  await app.logIn(new Realm.Credentials.anonymous());
-
   const DogSchema = {
     name: 'Dog',
     properties: {
-      _id: 'objectId',
+      _id: 'int',
       name: 'string',
       age: 'int',
     },
@@ -20,8 +14,13 @@ async function run() {
   const config = {
     path: 'my.realm',
     schema: [DogSchema],
-    sync: true,
+    /* 
+       enable sync history, using "sync:true" (this allows changes to "my.realm" file
+       to be synced by the realm opened in the main process)
+    */
+    sync: true, 
   };
+
 
   const realm = new Realm(config);
 
@@ -30,8 +29,8 @@ async function run() {
 
   realm.write(() => {
     realm.create('Dog', {
-      _id: new BSON.ObjectID(),
-      name: 'Fizzbuzz',
+      _id: 1,
+      name: 'Spot',
       age: 2,
     });
   });
